@@ -9,6 +9,7 @@ from database.DAO import DAO
 class Model:
 
     def __init__(self):
+        self._listaVicini = None
         self._countries=DAO.getAllStates()
         self._idMap={}
         for c in self._countries:
@@ -81,6 +82,18 @@ class Model:
             if nodo not in parziale:
                 possibili_successori.append(nodo)
         return possibili_successori
+
+    def componenteConnessaIterativa(self,source):
+        daVisitare=[source]
+        visitati=[]
+        for nodo in daVisitare:
+            daVisitare.remove(nodo)
+            successori = list(self._grafo.neighbors(nodo))
+            for succ in successori:
+                if succ not in visitati:
+                    daVisitare.append(succ)
+            visitati.append(nodo)
+        return visitati
 
 
 

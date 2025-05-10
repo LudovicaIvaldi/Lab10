@@ -50,7 +50,14 @@ class Controller:
         self._ddCountryValue=e.control.data
 
     def handleRaggiungibili(self,e):
-        listaConn=self._model.calcolaComponenteConnessaRicorsione(self._ddCountryValue)
+        #modo 1
+        #listaConn=self._model.nodiRaggiungibili(self._ddCountryValue)
+        #modo 2 ricorsione
+        #listaConn=self._model.calcolaComponenteConnessaRicorsione(self._ddCountryValue)
+        #modo 3 iterativo
+        listaConn=self._model.componenteConnessaIterativa(self._ddCountryValue)
+
+
         self._view._txt_result.controls.clear()
         if len(listaConn)==0:
             self._view._txt_result.controls.append(ft.Text(f"Non ci sono nodi raggiungibili da: {self._ddCountryValue}"))
