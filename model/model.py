@@ -1,4 +1,7 @@
+import copy
+
 import networkx as nx
+from networkx.classes import all_neighbors
 
 from database.DAO import DAO
 
@@ -46,5 +49,38 @@ class Model:
         conn=nx.node_connected_component(self._grafo,source)
         conn.remove(source)
         return conn
+
+    def calcolaComponenteConnessaRicorsione(self,source):
+        self._listaVicini=[]
+        succ=self.getSuccessori(source,[source])
+        print(succ)
+        self.ricorsione(succ,[source])
+        for i in self._listaVicini:
+            print(i)
+        return self._listaVicini
+
+    def ricorsione(self,successori,parziale):
+        #print("chiamo ricorsione")
+        #non posso chimare sempre successori e sperare che sia vuota perchè tutti i nodi hanno dei successori
+        #devo controllare quando li creo che non siano in parziale
+        if len(successori)==0:
+            self._listaVicini=copy.deepcopy(parziale)
+
+        else:
+            for nodo_nuovo in successori:
+                if nodo_nuovo not in parziale:
+                    parziale.append(nodo_nuovo)
+                    succ_nuovi=self.getSuccessori(nodo_nuovo,parziale)
+                    self.ricorsione(succ_nuovi,parziale)
+                    parziale.pop()
+
+    def getSuccessori(self,nodo_nuovo,parziale):
+        successori=list(self._grafo.neighbors(nodo_nuovo))
+        possibili_successori=[]
+        for nodo in successori:
+            if nodo not in parziale:
+                possibili_successori.append(nodo)
+        return possibili_successori
+
 
 

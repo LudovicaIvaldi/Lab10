@@ -34,7 +34,7 @@ class Controller:
         self._view._txt_result.controls.append(ft.Text(f"Il grafo ha {compConn} componenti connesse"))
         for str in lista:
             self._view._txt_result.controls.append(ft.Text(str))
-        self._view._btn_Raggiungibili.disabled=False
+        self._view._btnRaggiungibili.disabled=False
         self._view._ddStato.disabled=False
         self._g=grafo
         self.fillddStato()
@@ -49,8 +49,8 @@ class Controller:
     def readState(self,e):
         self._ddCountryValue=e.control.data
 
-    def handleCalcolaRaggiungibili(self,e):
-        listaConn=self._model.nodiRaggiungibili(self._ddCountryValue)
+    def handleRaggiungibili(self,e):
+        listaConn=self._model.calcolaComponenteConnessaRicorsione(self._ddCountryValue)
         self._view._txt_result.controls.clear()
         if len(listaConn)==0:
             self._view._txt_result.controls.append(ft.Text(f"Non ci sono nodi raggiungibili da: {self._ddCountryValue}"))
