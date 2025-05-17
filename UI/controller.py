@@ -51,11 +51,12 @@ class Controller:
 
     def handleRaggiungibili(self,e):
         #modo 1
-        #listaConn=self._model.nodiRaggiungibili(self._ddCountryValue)
+        # listaConn=self._model.nodiRaggiungibili(self._ddCountryValue)
         #modo 2 ricorsione
-        #listaConn=self._model.calcolaComponenteConnessaRicorsione(self._ddCountryValue)
+        listaConn=self._model.calcolaComponenteConnessaRicorsione(self._ddCountryValue)
+        # print(listaConn)
         #modo 3 iterativo
-        listaConn=self._model.componenteConnessaIterativa(self._ddCountryValue)
+        # listaConn=self._model.componenteConnessaIterativa(self._ddCountryValue)
 
 
         self._view._txt_result.controls.clear()
